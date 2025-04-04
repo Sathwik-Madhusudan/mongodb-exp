@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repo
+      uses: actions/checkout@v4
+    - name: Build the Docker image and push to repo 
+      uses: rossmaclean/docker-build-push-action@v0.0.27
+      with:
+        docker-user: ${{ secrets.DOCKER_USERNAME }}
+        image-name: docker.io/sathwik345678/mongo-app-demo
+        dockerhub-token: ${{ secrets.DOCKER_PASSWORD }}
+        version: ${{ github.run_number }}
