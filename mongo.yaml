@@ -1,0 +1,23 @@
+services:
+  flask-app:
+    image: sathwik345678/flask-app
+    ports:
+    - 3000:5001
+  mongodb:
+    image: mongo
+    ports:
+    - 27017:27017
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=myuser
+    - MONGO_INITDB_ROOT_PASSWORD=mypassword
+  mongo-express:
+    image: mongo-express
+    ports:
+    - 8080:8081
+    environment:
+    - ME_CONFIG_BASICAUTH_USERNAME=lol
+    - ME_CONFIG_BASICAUTH_PASSWORD=lol123
+    - ME_CONFIG_MONGODB_SERVER=mongodb
+    - ME_CONFIG_MONGODB_ADMINUSERNAME=myuser
+    - ME_CONFIG_MONGODB_ADMINPASSWORD=mypassword
+  

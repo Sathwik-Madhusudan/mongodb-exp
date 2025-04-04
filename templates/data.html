@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .container { max-width: 400px; margin: auto; }
+        input, button { display: block; width: 100%; margin: 10px 0; padding: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Profile</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="interests" placeholder="Interests (comma-separated)">
+        <button onclick="updateProfile()">Edit Profile</button>
+    </div>
+
+    <script>
+        async function updateProfile() {
+            const interestsRaw = document.getElementById("interests").value;
+            const interestsList = interestsRaw.split(",").map(i => i.trim()); // Convert to list
+
+            const data = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                interests: interestsList // Send as list
+            };
+
+            const response = await fetch('/update_profile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        }
+    </script>
+</body>
+</html>
