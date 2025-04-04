@@ -19,6 +19,6 @@ jobs:
       uses: rossmaclean/docker-build-push-action@v0.0.27
       with:
         docker-user: ${{ secrets.DOCKER_USERNAME }}
-        image-name: docker.io/sathwik345678/mongo-app-demo
+        image-name: sathwik345678/mongo-app-demo
         dockerhub-token: ${{ secrets.DOCKER_PASSWORD }}
         version: ${{ github.run_number }}
