@@ -1,6 +1,6 @@
 services:
   flask-app:
-    image: athwik345678/mongo-app-demo:latest
+    image: sathwik345678/mongo-app-demo:5
     ports:
     - 3000:5001
   mongodb:

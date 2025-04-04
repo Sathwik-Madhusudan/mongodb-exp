@@ -9,8 +9,8 @@ WORKDIR /home/sath
 # it in the docker-compose for easy edit 
 
 # This copy allows us to copy the files from my host machine to the working dirctory/any place inside the docker container
-COPY templates /home/sath/
-COPY app.py /home/sath/
+COPY . /home/sath/
+
 
 # RUN will run any Linux command on the container cli
 RUN pip install Flask
