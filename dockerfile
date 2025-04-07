@@ -11,7 +11,6 @@ WORKDIR /home/sath
 # This copy allows us to copy the files from my host machine to the working dirctory/any place inside the docker container
 COPY . /home/sath/
 
-
 # RUN will run any Linux command on the container cli
 RUN pip install Flask
 RUN pip install Flask-PyMongo
