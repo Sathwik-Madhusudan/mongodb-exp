@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 
 app = Flask(__name__, template_folder="templates")
 
-# ✅ Use localhost because Flask is running outside docker network
+
 app.config["MONGO_URI"] = "mongodb://myuser:mypassword@mongodb/user-account?authSource=admin"
 mongo = PyMongo(app)
 users_collection = mongo.db.users
