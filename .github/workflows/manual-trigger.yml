@@ -4,16 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       VALUE:
-        type: string
+        default: string_input
         required: true
         description: The value we are going to echo
-env:
-  value: ${{github.event.inputs.VALUE}}
 
 jobs:
   loud:
     runs-on: ubuntu-latest
+    env:
+      value: ${{ github.event.inputs.VALUE }}
     steps:
       - name: Display message
-        run: |
-        echo "This is the value that was passed: ${{ github.event.inputs.VALUE }}"
+        run: echo "This is the value that was passed:$value"
