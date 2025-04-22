@@ -1,0 +1,19 @@
+name: workflow dispatch implement
+
+on:
+  workflow_dispatch:
+    inputs:
+      VALUE:
+        type: string
+        required: true
+        description: The value we are going to echo
+env:
+  value: ${{github.event.inputs.VALUE}}
+
+jobs:
+  loud:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display message
+        run: |
+        echo "This is the value that was passed: ${{ github.event.inputs.VALUE }}"
