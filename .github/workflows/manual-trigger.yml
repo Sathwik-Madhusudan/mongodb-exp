@@ -1,18 +1,47 @@
 name: workflow dispatch implement
 
 on:
-  workflow_dispatch:
-    inputs:
-      VALUE:
-        default: string_input
-        required: true
-        description: The value we are going to echo
+  inputs:
+    SYSTEM:
+      type: string
+      required: true
+      default: "starlord"
+      description: Name of Shasta system "Rocket, Drax, etc"
+    PASSWORD:
+      type: string
+      required: true
+      default: "STARLORD_PASSWORD"
+      description: Name of Shasta Password Stored Secret
+
+env:
+  SYS_M1: "${{ github.event.inputs.SYSTEM }}-ncn-m001.hpc.amslabs.hpecorp.net"
+  USERNAME: "root"
+  SYSTEM: ${{github.event.inputs.SYSTEM }}
+  PASSWORD: ${{ secrets[github.event.inputs.PASSWORD] }}
 
 jobs:
-  loud:
+  set-up-sshpass:
     runs-on: ubuntu-latest
-    env:
-      value: ${{ github.event.inputs.VALUE }}
     steps:
-      - name: Display message
-        run: echo "This is the value that was passed:$value"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install sshpass
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y sshpass
+      - name: Add host to known_hosts
+        run: |
+            mkdir -p ~/.ssh
+            ssh-keyscan -H $SYS_M1 >> ~/.ssh/known_hosts
+      - name: Copy file using sshpass
+        run: |
+            sshpass -p "$PASSWORD" scp -o StrictHostKeyChecking=no ./temp.sh $USERNAME@$SYS_M1:/root/
+      - name: SSH and execute script
+        run: |
+            sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$SYS_M1 "bash /root/temp.sh"
+      - name: Pod Information
+        run: |
+            kubectl get pods
+      - name: Hostname Information
+        run: |
+            echo "The hostname is $(hostname)"
