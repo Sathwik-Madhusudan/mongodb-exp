@@ -1,17 +1,18 @@
 name: workflow dispatch implement
 
 on:
-  inputs:
-    SYSTEM:
-      type: string
-      required: true
-      default: "starlord"
-      description: Name of Shasta system "Rocket, Drax, etc"
-    PASSWORD:
-      type: string
-      required: true
-      default: "STARLORD_PASSWORD"
-      description: Name of Shasta Password Stored Secret
+  workflow_dispatch:
+    inputs:
+      SYSTEM:
+        type: string
+        required: true
+        default: "starlord"
+        description: Name of Shasta system "Rocket, Drax, etc"
+      PASSWORD:
+        type: string
+        required: true
+        default: "STARLORD_PASSWORD"
+        description: Name of Shasta Password Stored Secret
 
 env:
   SYS_M1: "${{ github.event.inputs.SYSTEM }}-ncn-m001.hpc.amslabs.hpecorp.net"
