@@ -13,9 +13,14 @@ on:
         required: true
         default: "STARLORD_PASSWORD"
         description: Name of Shasta Password Stored Secret
+      IP_ADDRESS:
+        type: string
+        required: true
+        default: 0.0.0.0
+        description: IP of Shasta System
 
 env:
-  SYS_M1: "${{ github.event.inputs.SYSTEM }}-ncn-m001.hpc.amslabs.hpecorp.net"
+  SYS_M1: "${{ github.event.inputs.IP_ADDRESS }}"
   USERNAME: "root"
   SYSTEM: ${{github.event.inputs.SYSTEM }}
   PASSWORD: ${{ secrets[github.event.inputs.PASSWORD] }}
